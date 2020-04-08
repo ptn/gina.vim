@@ -36,8 +36,6 @@ function! gina#command#complete(arglead, cmdline, cursorpos) abort
           \)
   elseif a:cmdline =~# printf('^.\{-}Gina\s\+%s$', a:arglead)
     return gina#complete#common#command(a:arglead, a:cmdline, a:cursorpos)
-  else
-    return []
   endif
   let cmdline = matchstr(a:cmdline, '^.\{-}Gina\s\+\zs.*')
   let scheme = matchstr(cmdline, '^\S\+')
@@ -52,11 +50,7 @@ function! gina#command#complete(arglead, cmdline, cursorpos) abort
     call gina#core#console#debug(v:exception)
     call gina#core#console#debug(v:throwpoint)
   endtry
-  return gina#command#complete(
-        \ a:arglead,
-        \ substitute(a:cmdline, '^\(.\{-}\)Gina', '\1Gina _raw', ''),
-        \ a:cursorpos,
-        \)[:g:gina#complete_threshold]
+  return []
 endfunction
 
 function! gina#command#scheme(sfile) abort
