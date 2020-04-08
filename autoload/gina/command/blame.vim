@@ -398,4 +398,5 @@ call gina#config(expand('<sfile>'), {
       \ 'use_default_mappings': 1,
       \ 'writer_threshold': 0,
       \ 'default_navi_width': 50,
+      \ 'confirm_on_parent_nav': 1,
       \})

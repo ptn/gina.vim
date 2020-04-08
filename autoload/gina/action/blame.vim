@@ -74,11 +74,13 @@ function! s:on_open(candidates, options) abort dict
             \ chunk.rev,
             \))
     endif
-    if !gina#core#console#confirm(printf(
-          \ 'A related parent commit "%s" exist. Do you want to move on?',
-          \ chunk.previous,
-          \), 'y')
-      throw gina#core#revelator#info('Cancel')
+    if g:gina#command#blame#confirm_on_parent_nav
+      if !gina#core#console#confirm(printf(
+            \ 'A related parent commit "%s" exist. Do you want to move on?',
+            \ chunk.previous,
+            \), 'y')
+        throw gina#core#revelator#info('Cancel')
+      endif
     endif
     let rev = matchstr(chunk.previous, '^\S\+')
     let path = matchstr(chunk.previous, '^\S\+\s\zs.*')
