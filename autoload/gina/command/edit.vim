@@ -53,6 +53,7 @@ endfunction
 function! s:build_args(git, args) abort
   let args = a:args.clone()
   let args.params.group = args.pop('--group', '')
+  let args.params.range = args.pop('--range', '')
   let args.params.opener = args.pop('--opener', '')
   call gina#core#args#extend_path(a:git, args, args.pop(1))
   call gina#core#args#extend_line(a:git, args, args.pop('--line'))
@@ -68,6 +69,7 @@ function! s:call(range, args, mods) abort
   call gina#core#buffer#open(bufname, {
         \ 'mods': a:mods,
         \ 'group': args.params.group,
+        \ 'range': args.params.range,
         \ 'opener': args.params.opener,
         \ 'cmdarg': args.params.cmdarg,
         \ 'line': args.params.line,

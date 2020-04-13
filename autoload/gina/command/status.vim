@@ -17,6 +17,7 @@ function! gina#command#status#call(range, args, mods) abort
         \ 'mods': a:mods,
         \ 'group': args.params.group,
         \ 'opener': args.params.opener,
+        \ 'range': args.params.range,
         \ 'cmdarg': args.params.cmdarg,
         \ 'callback': {
         \   'fn': function('s:init'),
@@ -58,6 +59,7 @@ function! s:build_args(git, args) abort
   let args = a:args.clone()
   let args.params.group = args.pop('--group', '')
   let args.params.opener = args.pop('--opener', '')
+  let args.params.range = args.pop('--range', '')
   let args.params.partial = !empty(args.residual())
   return args.lock()
 endfunction

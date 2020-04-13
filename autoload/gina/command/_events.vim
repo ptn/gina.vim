@@ -14,6 +14,7 @@ function! gina#command#_events#call(range, args, mods) abort
   call gina#core#buffer#open(bufname, {
         \ 'mods': a:mods,
         \ 'group': args.params.group,
+        \ 'range': args.params.range,
         \ 'opener': args.params.opener,
         \ 'cmdarg': args.params.cmdarg,
         \ 'callback': {
@@ -28,6 +29,7 @@ endfunction
 function! s:build_args(git, args) abort
   let args = a:args.clone()
   let args.params.group = args.pop('--group', '')
+  let args.params.range = args.pop('--range', '')
   let args.params.opener = args.pop('--opener', '')
   let args.params.detail = args.pop('--detail')
 
