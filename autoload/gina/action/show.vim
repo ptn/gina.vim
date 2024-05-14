@@ -85,15 +85,20 @@ function! s:on_show(candidates, options) abort
           \ gina#util#get(candidate, 'rev'),
           \ gina#util#get(candidate, 'path', v:null),
           \)
-    execute printf(
-          \ '%s Gina show %s %s %s %s -- %s',
-          \ options.mods,
-          \ gina#util#shellescape(options.opener, '--opener='),
-          \ gina#util#shellescape(get(candidate, 'line'), '--line='),
-          \ gina#util#shellescape(get(candidate, 'col'), '--col='),
-          \ gina#util#shellescape(treeish),
-          \ gina#util#shellescape(gina#util#get(candidate, 'residual')),
-          \)
+
+    if exists("g:gina_custom_commit_viewer")
+      call g:gina_custom_commit_viewer(treeish)
+    else
+      execute printf(
+            \ '%s Gina show %s %s %s %s -- %s',
+            \ options.mods,
+            \ gina#util#shellescape(options.opener, '--opener='),
+            \ gina#util#shellescape(get(candidate, 'line'), '--line='),
+            \ gina#util#shellescape(get(candidate, 'col'), '--col='),
+            \ gina#util#shellescape(treeish),
+            \ gina#util#shellescape(gina#util#get(candidate, 'residual')),
+            \)
+    endif
   endfor
 endfunction
 
